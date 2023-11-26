@@ -78,7 +78,8 @@ def calculate_multiple_faces_percentage(video_file: str) -> float:
 
     cap.release()
     cv2.destroyAllWindows()
-
+    if fl.count(0) == len(fl):
+        return 100
     count = len([num for num in fl if num > 1])
     percentage = (count / len(fl)) * 100 if fl else 0
     return percentage
