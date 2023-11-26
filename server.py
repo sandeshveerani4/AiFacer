@@ -111,7 +111,7 @@ def lipsync(filename,text):
     lips=[tf.strings.reduce_join([num_to_char(word) for word in sentence]) for sentence in decoded][0].numpy().decode("utf-8")
     extract_audio(filename, "tempaudio.wav")
     text_result = convert_audio_to_text("tempaudio.wav")
-    if lips == text_result and lips == text:
+    if lips.lower() == text_result.lower() and lips.lower() == text.lower():
         return "Real"
     else:
         return "Fake"
