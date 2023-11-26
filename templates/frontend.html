@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AiFacer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(function(){
+            $('#submit').on("click",function(e) {
+                e.preventDefault();
+                if($("#text").val()===""){
+alert("Please enter text you want to check!");
+                }
+          $("#response").show().text("Please wait...");
+                console.log('wowo')
+                var formData = new FormData();
+formData.append('file', $('#file')[0].files[0]);
+formData.append('text', $("#text").val());
+    $.ajax({
+        url: 'http://localhost:5000',
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: function(response) {
+          $("#response").text(response);
+        },
+        error: function(error) {
+            console.error('Error uploading file:', error);
+            // Handle error response here
+        }
+    });
+});
+})
+    </script>
+</head>
+
+<body class="flex items-center justify-center bg-emerald-100">
+    <div class="flex-col items-center justify-center">
+    <h1 class="font-bold text-2xl text-center mb-4">AiFacer</h1>
+        <input type="text" placeholder="Text Checking" id="text" class="w-full p-2 mb-2 rounded-2xl "/>
+        <input type="file" id="file" />
+        <button id="submit" class="rounded-xl bg-emerald-900 text-white p-3">Detect Real/Fake</button>
+    <h2 class="text-6xl font-bold text-center hidden text-uppercase" id="response">Real</h2>
+</div>
+</body>
+</html>
